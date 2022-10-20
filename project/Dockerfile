@@ -1,5 +1,5 @@
 # pull official base image
-FROM python:3.9.5-alpine
+FROM python:3.9.5
 
 # set work directory
 WORKDIR /usr/src/app
@@ -7,6 +7,9 @@ WORKDIR /usr/src/app
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+
+# install supervisord
+RUN apt-get update && apt-get install -y supervisor
 
 # install dependencies
 RUN pip install --upgrade pip
@@ -20,4 +23,7 @@ COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
 COPY . /usr/src/app/
 
 # run entrypoint.sh
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+# ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+
+# run supervisord
+CMD ["/usr/bin/supervisord"]
