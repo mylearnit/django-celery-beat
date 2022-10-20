@@ -140,6 +140,10 @@ CELERY_BEAT_SCHEDULE = {
         "task": "core.tasks.send_email_report",
         "schedule": crontab(hour="*/1"),
     },
+    "create_orders":{
+        "task":"orders.tasks.db_check",
+        "schedule": crontab(minute="*/1"),
+    },
 }
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
