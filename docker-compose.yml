@@ -1,23 +1,35 @@
 version: '3.8'
 
 services:
+
   web:
-    build: ./project
-      context: .
+    build: 
+      context: ./project
       dockerfile: Dockerfile
-    
+    image: django_web
+    command: /start_gunicorn
     ports:
       - 8000:8000
-    
 
+  # db:
+  #   image: postgres:14-alpine
+  #   volume:
+  #     - postgres_data:/var/lib/postgresql/data/
 
+  #   environment:
+  #     - POSTGRES_DB=hello_django
+  #     - POSTGRES_USER=hello_django
+  #     - POSTGRES_PASSWORD=hello_django
   celery:
-    build: ./project
-      context: .
-      dockerfile: Dockerfile-celery
-      
+    build: 
+      context: ./project
+      dockerfile: Dockerfile
+    image: django_celery
+    command: /start_celery
     links:
       - redis
   redis:
     image: redis:alpine
   
+
+

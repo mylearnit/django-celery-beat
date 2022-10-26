@@ -22,11 +22,19 @@ ARG CACHEBUST=1
 RUN sed -i 's/\r$//g' /start_gunicorn
 RUN chmod +x /start_gunicorn
 
+COPY ./start_celery /start_celery
+RUN sed -i 's/\r$//g' /start_celery
+RUN chmod +x /start_celery
+
 # copy entrypoint.sh
 COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
 
 # copy project
 COPY . /usr/src/app/
 
+COPY ./gunicorn.conf /etc/supervisor/conf.d/gunicorn.conf
+COPY ./supervisor_app.conf /etc/supervisor/conf.d/supervisor_app.conf
+COPY ./supervisord.conf /etc/supervisor/supervisord.conf
+
 # run entrypoint.sh
-# ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
