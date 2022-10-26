@@ -22,7 +22,7 @@ COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
 # copy project
 COPY . /usr/src/app/
 
-COPY ./gunicorn.conf /etc/supervisor/conf.d/gunicorn.conf
+
 COPY ./supervisor_app.conf /etc/supervisor/conf.d/supervisor_app.conf
 COPY ./supervisord.conf /etc/supervisor/supervisord.conf
 
