@@ -34,5 +34,8 @@ COPY . /usr/src/app/
 # run supervisord
 # CMD ["/usr/bin/supervisord"]
 
+RUN mkdir -p /var/log/supervisor
+COPY ./gunicorn.conf /etc/supervisor/conf.d/gunicorn.conf
+COPY ./supervisor_app.conf /etc/supervisor/conf.d/supervisor_app.conf
 COPY ./supervisord.conf /etc/supervisor/supervisord.conf
 ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
