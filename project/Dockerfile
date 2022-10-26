@@ -17,7 +17,7 @@ COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r requirements.txt
 
 
-COPY ./project/start_gunicorn /start_gunicorn
+COPY ./start_gunicorn /start_gunicorn
 ARG CACHEBUST=1
 RUN sed -i 's/\r$//g' /start_gunicorn
 RUN chmod +x /start_gunicorn
@@ -34,5 +34,5 @@ COPY . /usr/src/app/
 # run supervisord
 # CMD ["/usr/bin/supervisord"]
 
-COPY project/supervisord.conf /etc/supervisor/supervisord.conf
+COPY ./supervisord.conf /etc/supervisor/supervisord.conf
 ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
