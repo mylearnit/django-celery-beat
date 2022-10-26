@@ -3,9 +3,19 @@ version: '3.8'
 services:
   web:
     build: ./project
+      context: .
+      dockerfile: Dockerfile
     
     ports:
       - 8000:8000
+    
+
+
+  celery:
+    build: ./project
+      context: .
+      dockerfile: Dockerfile-celery
+      
     links:
       - redis
   redis:
