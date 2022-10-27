@@ -9,7 +9,9 @@ services:
     image: django_web
     command: /start_gunicorn
     ports:
-      - 8000:8000
+      - 8001:8001
+    links:
+      - redis
 
   # db:
   #   image: postgres:14-alpine
@@ -20,14 +22,14 @@ services:
   #     - POSTGRES_DB=hello_django
   #     - POSTGRES_USER=hello_django
   #     - POSTGRES_PASSWORD=hello_django
-  celery:
-    build: 
-      context: ./project
-      dockerfile: Dockerfile
-    image: django_celery
-    command: /start_celery
-    links:
-      - redis
+  # celery:
+  #   build: 
+  #     context: ./project
+  #     dockerfile: Dockerfile
+  #   image: django_celery
+  #   command: /start_celery
+  #   links:
+  #     - redis
   redis:
     image: redis:alpine
   
